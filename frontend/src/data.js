@@ -65,6 +65,17 @@ const data = {
       rating: 4.5,
       numReviews: 10,
       description: 'High quality product',
+    },
+    {
+      _id: '7',
+      name: 'Goodfellow Pants',
+      category: 'Pants', 
+      image: '/images/p4.jpg',
+      price: 92,
+      brand: 'Goodfellow',
+      rating: 5,
+      numReviews: 6,
+      description: 'High quality product',
     }
   ]
 }
