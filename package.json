@@ -1,0 +1,23 @@
+{
+  "name": "estore",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "This site is to be a starting point for an upcoming ECommerce page.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OnTheRocks/Ecommerce.git"
+  },
+  "author": "Nathan Huber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OnTheRocks/Ecommerce/issues"
+  },
+  "homepage": "https://github.com/OnTheRocks/Ecommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
