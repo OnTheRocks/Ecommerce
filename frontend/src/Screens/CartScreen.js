@@ -19,7 +19,7 @@ export default function CartScreen(props) {
     // delete action
   };
   return (
-    <div className=" row top">
+    <div className="row top">
       <div className="col-2">
         <h1>Shopping cart</h1>
         {cartItems.length === 0?<MessageBox>
@@ -36,7 +36,12 @@ export default function CartScreen(props) {
                   <Link to={`/product/${item.product}`}>{item.name}</Link>
                 </div>
                 <div>
-                  <select value={item.qty} onChange={e => dispatch(addToCart(item.product), Number(e.target.value))}>
+                  <select 
+                    value={item.qty} 
+                    onChange={(e) => 
+                      dispatch(
+                        addToCart(item.product, Number(e.target.value))
+                      )}>
                   {[...Array(item.countInStock).keys()].map( x => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
