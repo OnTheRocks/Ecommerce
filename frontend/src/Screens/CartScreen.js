@@ -7,7 +7,7 @@ import MessageBox from '../components/MessageBox';
 export default function CartScreen(props) {
   const productId = props.match.params.id;
   const qty = props.location.search? Number(props.location.search.split('=')[1]): 1;
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
   const { cartItems } = cart;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,12 +26,14 @@ export default function CartScreen(props) {
           Cart is empty. <Link to="/">Go Shopping</Link>  
         </MessageBox>
         :
-        <ul>
+        (<ul>
           {cartItems.map((item) => (
               <li key={item.product}>
                 <div className="row">
-                  <img src={item.image} alt={item.name} className="small"></img>
-                </div>
+                  <div>
+                    <img src={item.image} alt={item.name} className="small"></img>
+                  </div>
+                
                 <div className="min-30">
                   <Link to={`/product/${item.product}`}>{item.name}</Link>
                 </div>
@@ -40,8 +42,8 @@ export default function CartScreen(props) {
                     value={item.qty} 
                     onChange={(e) => 
                       dispatch(
-                        addToCart(item.product, Number(e.target.value))
-                      )}>
+                        addToCart(item.product), Number(e.target.value))
+                      }>
                   {[...Array(item.countInStock).keys()].map( x => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
@@ -54,9 +56,10 @@ export default function CartScreen(props) {
                 <div>
                   <button type="button" onClick={() => removeFromCartHandler(item.product)}>Delete</button>
                 </div>
+                </div>
               </li>
             ))}
-        </ul>
+        </ul>)
       }
       </div>      
     </div>
