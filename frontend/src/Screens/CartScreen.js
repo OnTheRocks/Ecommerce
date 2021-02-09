@@ -18,6 +18,10 @@ export default function CartScreen(props) {
   const removeFromCartHandler = (id) => {
     // delete action
   };
+
+  const checkoutHandler = () => {
+    props.history.push(`/signin?redirect=shipping`);
+  };
   return (
     <div className="row top">
       <div className="col-2">
@@ -42,8 +46,8 @@ export default function CartScreen(props) {
                     value={item.qty} 
                     onChange={(e) => 
                       dispatch(
-                        addToCart(item.product), Number(e.target.value))
-                      }>
+                        addToCart(item.product, Number(e.target.value))
+                      )}>
                   {[...Array(item.countInStock).keys()].map( x => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
@@ -61,7 +65,21 @@ export default function CartScreen(props) {
             ))}
         </ul>)
       }
-      </div>      
+      </div> 
+      <div className="col-1">
+        <div className="card card-body">
+          <ul>
+            <li>
+              <h2>
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
+                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)} 
+              </h2>
+            </li>
+              <button type="button" onClick={checkoutHandler} className="primary block" disabled={cartItems.length === 0}>Proceed to Checkout</button>
+
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }
