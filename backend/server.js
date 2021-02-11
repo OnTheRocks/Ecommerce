@@ -4,7 +4,7 @@ import data from './data.js';
 import userRouter from './routers/userRouter.js';
 
 const app = express();
-mongoose.connect('mongodb://localhost/EStore', {
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/EStore', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
