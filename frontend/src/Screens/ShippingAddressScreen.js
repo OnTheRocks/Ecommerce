@@ -1,15 +1,28 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps'
 
-export default function ShippingAddressScreen() {
-  const [fullName, setFullName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [zip, setZip] = useState('');
-  const [country, setCountry] = useState('');
+export default function ShippingAddressScreen(props) {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin; 
+  const cart = useSelector(state => state.cart);
+  const { shippingAddress } = cart;
+  if (!userInfo) {
+    props.history.push('/signin');
+  }
+  const [fullName, setFullName] = useState(shippingAddress.fullName);
+  const [address, setAddress] = useState(shippingAddress.state);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [state, setState] = useState(shippingAddress.state);
+  const [zip, setZip] = useState(shippingAddress.zip);
+  const [country, setCountry] = useState(shippingAddress.country);
+  const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    // TODO: dispatch save shipping address action
+    dispatch(saveShippingAddress({fullName, address, city, state, zip, country})
+    );
+    props.history.push('/payment');
   };
   return (
     <div>
@@ -49,7 +62,17 @@ export default function ShippingAddressScreen() {
           </input>
         </div>
         <div>
-          <label htmlFor="zip">Zipe Code</label>
+          <label htmlFor="state">State</label>
+          <input 
+            type="text" 
+            id="city" 
+            placeholder="Enter State" 
+            value={state} onChange={(e) => setState(e.target.value)} 
+            required>
+          </input>
+        </div>
+        <div>
+          <label htmlFor="zip">Zip Code</label>
           <input 
             type="text" 
             id="Zip" 
