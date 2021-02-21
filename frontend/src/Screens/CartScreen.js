@@ -30,8 +30,8 @@ export default function CartScreen(props) {
         {cartItems.length === 0?<MessageBox>
           Cart is empty. <Link to="/">Go Shopping</Link>  
         </MessageBox>
-        :
-        (<ul>
+        :(
+        <ul>
           {cartItems.map((item) => (
               <li key={item.product}>
                 <div className="row">
@@ -64,8 +64,8 @@ export default function CartScreen(props) {
                 </div>
               </li>
             ))}
-        </ul>)
-      }
+        </ul>
+        )}
       </div> 
       <div className="col-1">
         <div className="card card-body">
