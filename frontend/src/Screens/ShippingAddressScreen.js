@@ -12,7 +12,7 @@ export default function ShippingAddressScreen(props) {
     props.history.push('/signin');
   }
   const [fullName, setFullName] = useState(shippingAddress.fullName);
-  const [address, setAddress] = useState(shippingAddress.state);
+  const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
   const [state, setState] = useState(shippingAddress.state);
   const [zip, setZip] = useState(shippingAddress.zip);
@@ -65,7 +65,7 @@ export default function ShippingAddressScreen(props) {
           <label htmlFor="state">State</label>
           <input 
             type="text" 
-            id="city" 
+            id="state" 
             placeholder="Enter State" 
             value={state} onChange={(e) => setState(e.target.value)} 
             required>
