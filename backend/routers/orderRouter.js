@@ -20,7 +20,7 @@ orderRouter.post('/', isAuth, expressAsyncHandler(async(req, res) => {
       user: req.user._id,
     });
     const createdOrder = await order.save();
-    res.status(201).send({ message: 'New Order Created', order: createOrder });
+    res.status(201).send({ message: 'New Order Created', order: createdOrder });
   }
 })
 );
