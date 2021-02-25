@@ -1,5 +1,6 @@
 import Axios from 'axios';
-import React, { useEffect } from 'react'
+import PaypalButton from 'react-paypal-button-v2'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { detailsOrder } from '../actions/orderActions';
@@ -130,6 +131,16 @@ export default function OrderScreen(props) {
                   <div><strong>${order.totalPrice.toFixed(2)}</strong></div>                  
                 </div>
               </li>
+              {
+                !order.isPaid && (
+                  <li>
+                    {!sdkReady? (<LoadingBox></LoadingBox>):
+                    (
+                      <PaypalButton amount={order.totalPrice} onSuccess={successPaymentHandler}></PaypalButton>
+                    )}
+                  </li>
+                )
+              }
             </ul>
           </div>
         </div>
