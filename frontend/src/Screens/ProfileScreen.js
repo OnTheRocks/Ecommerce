@@ -11,8 +11,8 @@ export default function ProfileScreen() {
   const { loading, error, user } = userDetails;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(detailsUser(userInfo._id));
-  }, [dispatch, userInfo._id]);
+    dispatch(detailsUser(userInfo.id));
+  }, [dispatch, userInfo.id]);
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
