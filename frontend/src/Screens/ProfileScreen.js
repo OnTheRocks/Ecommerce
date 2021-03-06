@@ -34,8 +34,7 @@ export default function ProfileScreen() {
     } else {
       dispatch(updateUserProfile({ userId: user._id, name, email, password }));
     }
-  };
-  
+  };  
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
