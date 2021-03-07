@@ -11,7 +11,11 @@ export default function ProductListScreen(props) {
   const dispatch = useDispatch
   useEffect(() => {
     dispatch(listProducts());
-  })
+  }, [dispatch]);
+  const deleteHandler = () => {
+    // TODO: dispatch delete action.
+  }
+
   return (
     <div>
       <h1>Products</h1>
@@ -19,7 +23,7 @@ export default function ProductListScreen(props) {
       :
       error? <MessageBox variant="danger">{error}</MessageBox>
       :
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -32,7 +36,7 @@ export default function ProductListScreen(props) {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={Product._id}>
+            <tr key={product._id}>
               <td>{product._id}</td>
               <td>{product.name}</td>
               <td>{product.price}</td>
