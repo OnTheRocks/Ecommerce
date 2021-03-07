@@ -3,27 +3,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import Product from '../components/Product';
 
 export default function ProductListScreen(props) {
-  const productList = useSelector((state) => state.producteList);
+  const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
-  const dispatch = useDispatch
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
   const deleteHandler = () => {
     // TODO: dispatch delete action.
-  }
-
+  };
   return (
     <div>
       <h1>Products</h1>
-      {loading? <LoadingBox></LoadingBox>
+      {loading? (<LoadingBox></LoadingBox>)
       :
-      error? <MessageBox variant="danger">{error}</MessageBox>
+      error? (<MessageBox variant="danger">{error}</MessageBox>) 
       :
-      <table className="table">
+      (<table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -56,7 +54,7 @@ export default function ProductListScreen(props) {
           ))}
         </tbody>
       </table>
-      }
+      )}
     </div>
   )
 }
