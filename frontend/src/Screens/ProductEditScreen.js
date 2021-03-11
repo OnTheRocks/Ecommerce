@@ -18,7 +18,7 @@ export default function ProductEditScreen(props) {
   const { loading, error, product } = productDetails;
   const dispatch = useDispatch();
   useEffect(() => {
-    if(!product.name) {
+    if(!product || (product._id !== productId)) {
       dispatch(detailsProduct(productId));
     } else {
       setName(product.name);
