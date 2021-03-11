@@ -41,10 +41,9 @@ export default function ProductEditScreen(props) {
         <div>
           <h1>Edit Product {productId}</h1>
         </div>
-        {loading? <LoadingBox></LoadingBox>
-        :
-        error? <MessageBox variant="danger">{error}</MessageBox>
-        :
+        {loading ? ( <LoadingBox></LoadingBox>
+   ) : error ? ( <MessageBox variant="danger">{error}</MessageBox>
+   ) : (
         <>          
           <div>
             <label htmlFor="name">Name</label>
@@ -56,7 +55,6 @@ export default function ProductEditScreen(props) {
             <input id="price" type="text" placeholder="Enter Price" value={price} onChange={(e) => setPrice(e.target.value)}>          
             </input>
           </div>
-          <div>
           <div>
             <label htmlFor="image">Image</label>
             <input id="image" type="text" placeholder="Enter Price" value={image} onChange={(e) => setImage(e.target.value)}>          
@@ -82,8 +80,14 @@ export default function ProductEditScreen(props) {
             <textarea id="description"  rows="3" type="text" placeholder="Enter Description" value={description} onChange={(e) => setDescription(e.target.value)}>          
             </textarea>
           </div>
+          <div>
+            <label></label>
+            <button className="primary" type="submit">
+              Update
+            </button>
+          </div>
         </>
-      )}  
+        )}
       </form>
     </div>
   );
