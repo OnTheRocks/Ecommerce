@@ -10,7 +10,10 @@ import {
   PRODUCT_LIST_SUCCESS, 
   PRODUCT_UPDATE_FAIL, 
   PRODUCT_UPDATE_REQUEST,
-  PRODUCT_UPDATE_SUCCESS
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SECCESS
 } from "../constants/productConstants"
 
 export const listProducts = () => async (dispatch) => {
@@ -45,7 +48,7 @@ export const createProduct = () => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_CREATE_FAIL });
   const { userSignin:{userInfo}} = getState();
   try{
-    const { data } = await Axios.post('/api/products', {}, { headers: { authorization: `Bearer ${userInfo.token}` },
+    const { data } = await Axios.post('/api/products', {}, { headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch ({ type: PRODUCT_CREATE_SUCCESS, payload: data.product, });
   } catch(error) {
@@ -60,7 +63,8 @@ export const createProduct = () => async (dispatch, getState) => {
 export const updateProduct = (product) => async(dispatch, getState) => {
   dispatch({ type: PRODUCT_UPDATE_REQUEST, payload: product });
   const { userSignin:{userInfo}} = getState();
-  try{const { data } = await Axios.put(`/api/products/${product._id}`, product, { headers: { authorization: `Bearer ${userInfo.token}` },
+  try {
+    const { data } = await Axios.put(`/api/products/${product._id}`, product, { headers: { Authorization: `Bearer ${userInfo.token}` },
 });
 dispatch ({ type: PRODUCT_UPDATE_SUCCESS, payload: data, });
     
@@ -72,3 +76,19 @@ dispatch ({ type: PRODUCT_UPDATE_SUCCESS, payload: data, });
     dispatch({ type: PRODUCT_UPDATE_FAIL, payload: message });
 } 
 };
+
+export const deleteProduct = (productId) => async(dispatch, getState) => {
+  dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
+  const { userSignin: {userInfo}} = getState();
+  try {
+    const { data } = await Axios.delete('/api/products', { headers: { Authorization: `Bearer ${userInfo.token}` },
+  });
+  dispatch ({ type: PRODUCT_DELETE_SECCESS });
+  } catch (error) {
+    const message = 
+    error.response && error.response.data.message 
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
+  }
+}

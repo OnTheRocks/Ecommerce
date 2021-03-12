@@ -19,8 +19,8 @@ export default function ProductListScreen(props) {
     }
     dispatch(listProducts());
   }, [ createdProduct, dispatch, props.history, successCreate]);
-  const deleteHandler = () => {
-    // TODO: dispatch delete action.
+  const deleteHandler = (product) => {
+    dispatch(deleteProduct(product._id));
   };
   const createHandler = () => {
     dispatch(createProduct());
