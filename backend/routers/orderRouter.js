@@ -77,17 +77,4 @@ orderRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res)
 })
 );
 
-orderRouter.put('/:id/deliver', isAuth, expressAsyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
-  if (order) {
-    order.isDeliverd = true;
-    order.deliverdAt = Date.now();   
-    const updateOrder = await order.save();
-    res.send({ message: 'Order Delivered', order: updateOrder });
-  } else {
-    res.status(404).send({ message: 'Order Not Found' });
-  }
-})
-);
-
 export default orderRouter;
