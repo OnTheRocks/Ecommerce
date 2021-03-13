@@ -13,6 +13,10 @@ const {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_REQUEST,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_RESET,
 } = require('../constants/productConstants');
 
 export const productListReducer = (state = { loading: true, products: [] }, action) => {
