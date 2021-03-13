@@ -74,7 +74,7 @@ export const payOrder = (order, paymentResult) => async (dispatch, getState) => 
   }
 };
 
-export const listOrder = () => async (dispatch, getState) => {
+export const listOrderMine = () => async (dispatch, getState) => {
   dispatch({type: ORDER_LIST_MINE_REQUEST});
   const { userSignin:{ userInfo }} = getState();
   try {
