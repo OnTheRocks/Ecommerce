@@ -24,15 +24,16 @@ export default function ProductListScreen(props) {
       dispatch({ type: PRODUCT_DELETE_RESET});
     }
     dispatch(listProducts());
-  }, [ createdProduct, dispatch, props.history, successCreate, successDelete]);
-  
-    
+  }, [ createdProduct, dispatch, props.history, successCreate, successDelete]);    
   const deleteHandler = (product) => {
-    dispatch(deleteProduct(product._id));
+    if (window.confirm('Are you sure you want to delete this item?'))  {
+      dispatch(deleteProduct(product._id));  
+    }
+
   };
   const createHandler = () => {
     dispatch(createProduct());
-  }
+  };
   return (
     <div>
       <div className="row">
