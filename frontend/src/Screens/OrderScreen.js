@@ -149,11 +149,11 @@ export default function OrderScreen(props) {
               </li>
               {!order.isPaid && (
                 <li>
-                  {!sdkReady? (<LoadingBox></LoadingBox>
+                  {!sdkReady ? (<LoadingBox></LoadingBox>
                   ) : (
                     <>
                       {errorPay && (<MessageBox variant="danger">{errorPay}</MessageBox>)}
-                      { loadingPay && <LoadingBox></LoadingBox>}
+                      {loadingPay && <LoadingBox></LoadingBox>}
                       <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
                     </>
                   )}
