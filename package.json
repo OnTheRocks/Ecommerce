@@ -5,6 +5,7 @@
   "description": "This site is to be a starting point for an upcoming ECommerce page.",
   "main": "server.js",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node -- experimental-modules backend/server.js"
   },
   "repository": {
@@ -29,4 +30,5 @@
   "devDependencies": {
     "nodemon": "^2.0.7"
   }
+  "engines": {"node": "12.4.0"}
 }
