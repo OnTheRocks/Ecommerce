@@ -13,11 +13,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const MONGODB_URL = process.env.MONGODB_URL;
+
+console.log("Database connection = ", MONGODB_URL);
+
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/EStore', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+
+
+
 app.use('/api/uploads', uploadRouter)
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
