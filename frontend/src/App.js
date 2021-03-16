@@ -34,7 +34,7 @@ function App() {
     <div className="grid-container">
     <header className="row">
       <div>
-        <Link className="brand" to="/">EStore</Link>
+        <Link className="brand" to="/">Dancing Nail Lady - Lucy Huber</Link>
       </div>
       <div>
         <Link to="/cart">Cart
