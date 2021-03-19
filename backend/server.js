@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/EStore', {
 
 
 
-app.use('/api/uploads', uploadRouter)
+app.use('/api/images', uploadRouter)
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
