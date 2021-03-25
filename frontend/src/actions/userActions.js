@@ -151,4 +151,3 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
     dispatch({ type: USER_DELETE_FAIL, payload: message });
   }
 };
-
