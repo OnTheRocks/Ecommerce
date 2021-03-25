@@ -20,6 +20,7 @@ import ProductEditScreen from './Screens/ProductEditScreen';
 import OrderListScreen from './Screens/OrderListScreen';
 import UserListScreen from './Screens/UserListScreen';
 import UserEditScreen from './Screens/UserEditScreen';
+import SellerRoute from './components/SellerRoute';
 
 function App() {
 
@@ -62,6 +63,15 @@ function App() {
           ) : (
             <Link to="/signin">Sign In</Link>
           )}  
+        {userInfo && userInfo.isSeller && (
+          <div className="dropdown">
+            <Link to="#admin">Seller {' '} <i className="fa fa-caret-down"></i></Link>
+            <ul className="dropdown-content">
+              <li><Link to="/productlist/seller">Products</Link></li>
+              <li><Link to="/orderlist/seller">Orders</Link></li>
+            </ul>
+          </div>
+          )}
         {userInfo && userInfo.isAdmin && (
           <div className="dropdown">
             <Link to="#admin">Admin {' '} <i className="fa fa-caret-down"></i></Link>
@@ -87,10 +97,12 @@ function App() {
       <Route path="/order/:id" component={OrderScreen}></Route>
       <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
       <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
-      <AdminRoute path="/productList" component={ProductListScreen}></AdminRoute>
-      <AdminRoute path="/orderList" component={OrderListScreen}></AdminRoute>
+      <AdminRoute path="/productList" component={ProductListScreen} exact></AdminRoute>
+      <AdminRoute path="/orderList" component={OrderListScreen} exact></AdminRoute>
       <AdminRoute path="/userList" component={UserListScreen}></AdminRoute>
       <AdminRoute path="/user/:id/edit" component={UserEditScreen}></AdminRoute>
+      <SellerRoute path="/productlist/seller" component={ProductListScreen}></SellerRoute>
+      <SellerRoute path="/orderlist/seller" component={OrderListScreen}></SellerRoute>
       <Route path="/" component={HomeScreen} exact></Route>
     </main>
     <footer className="row center" >
