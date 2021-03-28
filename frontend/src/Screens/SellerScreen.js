@@ -4,6 +4,7 @@ import { listProducts } from '../actions/productActions';
 import { detailsUser } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Product from '../components/Product';
 import Rating from '../components/Rating';
 
 export default function SellerScreen(props) {
@@ -43,9 +44,21 @@ export default function SellerScreen(props) {
         )}
       </div>
       <div className="col=3">
-
+      {loadingProducts ? (
+          <LoadingBox></LoadingBox>
+        ) : errorProducts ? (
+          <MessageBox variant="danger">{errorProducts}</MessageBox>
+        ) : (
+          <>
+            {products.length === 0 && <MessageBox>No Product Found</MessageBox>}
+            <div className="row center">
+              {products.map((product) => (
+                <Product key={product._id} product={product}></Product>
+              ))}
+            </div>
+          </>
+        )}
       </div>
-      
     </div>
-  )
+  );
 }
