@@ -29,21 +29,21 @@ export default function SellerScreen(props) {
         :
         (
           <ul className="card card-body">
-            <li><div className="row">
-                <div>
-                  <img src={user.seller.logo} alt={user.seller.name}></img>
+            <li><div className="row start">
+                <div className="p-1">
+                  <img className="small" src={user.seller.logo} alt={user.seller.name}></img>
                 </div>
-                <div>
+                <div className="p-1">
                   <h1>{user.seller.name}</h1> 
                 </div>
               </div></li>
-            <li><Rating value={user.seller.rating} text={`${user.seller.numReviews} reviews`}></Rating></li>
+            <li><Rating rating={user.seller.rating} numReviews={user.seller.numReviews}></Rating></li>
             <li><a href={`mailto:${user.email}`}>Contact Seller</a></li>
             <li>{user.seller.description}</li>
           </ul>
         )}
       </div>
-      <div className="col=3">
+      <div className="col-3">
       {loadingProducts ? (
           <LoadingBox></LoadingBox>
         ) : errorProducts ? (
