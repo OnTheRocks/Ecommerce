@@ -23,8 +23,6 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/EStore', {
   useCreateIndex: true,
 });
 
-
-
 app.use('/api/uploads', uploadRouter)
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
@@ -37,10 +35,6 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/frontend/build/index.html')));
-
-// app.get('/', (req, res) => { 
-//   res.send("Server is up");
-// });
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
