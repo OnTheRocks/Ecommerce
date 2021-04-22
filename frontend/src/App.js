@@ -24,6 +24,7 @@ import SellerRoute from './components/SellerRoute';
 import SellerScreen from './Screens/SellerScreen';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './Screens/SearchScreen';
+import { listProductsCategories } from './actions/productActions';
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
     dispatch(signout());
   };
   useEffect(() => {
-    dispatch(listProductCategories());
+    dispatch(listProductsCategories());
   }, [dispatch]);
   return (
     <BrowserRouter>
