@@ -63,13 +63,19 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
     order.paymentResult = { id: req.body.id, status: req.body.status, update_time: req.body.update_time, email_address: req.body.email_address };
     const updateOrder = await order.save();
 
-    for (const index in updatedOrder.orderItems) {
-      const item = updatedOrder.orderItems[index];
-      const product = await Product.findById(item.product);
-      product.countInStock -= item.qty;
-      product.sold += item.qty;      
-      await product.save();
-    }
+    // for (const index in order.orderItems) {
+    //   const item = order.orderItems[index];
+    //   const product = await Product.findById(item.product);
+    //   product.countInStock -= item.qty;
+    //   product.sold += item.qty;
+    //   product.transactions.push({
+    //     user: req.user._id,
+    //     qty: -item.qty,
+    //     transactionType: 'SOLD',
+    //     description: `sold to ${req.user.name} on order ${updatedOrder._id}`,
+    //   });
+    //   await product.save({ session });
+    // }
  
     res.send({ message: 'Order Paid', order: updateOrder });
   } else {
