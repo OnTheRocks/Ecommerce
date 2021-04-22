@@ -62,6 +62,14 @@ orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
     order.paidAt = Date.now();
     order.paymentResult = { id: req.body.id, status: req.body.status, update_time: req.body.update_time, email_address: req.body.email_address };
     const updateOrder = await order.save();
+
+    for (const index in updatedOrder.orderItems) {
+      const item = updatedOrder.orderItems[index];
+      const product = await Product.findById(item.product);
+      product.countInStock -= item.qty;
+      product.sold += item.qty;      
+      await product.save();
+    }
  
     res.send({ message: 'Order Paid', order: updateOrder });
   } else {
