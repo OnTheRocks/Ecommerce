@@ -13,7 +13,10 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_REQUEST,
-  PRODUCT_DELETE_SUCCESS
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_CATEGORY_LIST_REQUEST,
+  PRODUCT_CATEGORY_LIST_FAIL,
+  PRODUCT_CATEGORY_LIST_SUCCESS
 } from "../constants/productConstants"
 
 export const listProducts = ({seller='', name=''}) => async (dispatch) => {
@@ -25,6 +28,18 @@ export const listProducts = ({seller='', name=''}) => async (dispatch) => {
     dispatch({type: PRODUCT_LIST_SUCCESS, payload: data})
   } catch (error) {
     dispatch({type:PRODUCT_LIST_FAIL, payload: error.message});
+  }
+}
+
+export const listProductsCategories = () => async (dispatch) => {
+  dispatch({
+    type: PRODUCT_CATEGORY_LIST_REQUEST
+  });
+  try {
+    const { data } = await Axios.get(`/api/products/categories`);
+    dispatch({type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data})
+  } catch (error) {
+    dispatch({type:PRODUCT_CATEGORY_LIST_FAIL, payload: error.message});
   }
 }
 
