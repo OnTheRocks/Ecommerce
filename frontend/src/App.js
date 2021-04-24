@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 import { signout } from './actions/userActions';
@@ -29,10 +29,11 @@ import { listProductCategories } from './actions/productActions';
 function App() {
 
   const cart = useSelector(state => state.cart);
+  const [sidebarIsOpen, setsidebarIsOpen] = useState(false)
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const signoutHandler = () => {
     dispatch(signout());
   };
@@ -95,6 +96,16 @@ function App() {
         )}
       </div>
     </header>
+    <aside className={sidebarIsOpen ? 'open' : '' }>
+      <ul className="categories">
+        <li>
+          <strong>categories</strong>
+          <button onClick={() => setSidebarIsOpen(false)} className="close-sidebar" type="button">
+            <i className="fa fa-close"></i>
+          </button>
+        </li>
+      </ul>
+    </aside>
     <main>
       <Route path="/seller/:id" component={SellerScreen}></Route>
       <Route path="/cart/:id?" component={CartScreen}></Route>
