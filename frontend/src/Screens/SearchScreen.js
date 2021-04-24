@@ -39,7 +39,7 @@ export default function SearchScreen(props) {
           <h3>Department</h3>
           { loadingCategories ? ( <LoadingBox ></LoadingBox> )
         :
-        errorCategories? ( <MessageBox variant="danger">{error}</MessageBox> )
+        errorCategories? ( <MessageBox variant="danger">{errorCategories}</MessageBox> )
         :
          ( 
          <ul>

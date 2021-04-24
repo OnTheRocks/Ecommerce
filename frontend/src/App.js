@@ -25,6 +25,8 @@ import SellerScreen from './Screens/SellerScreen';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './Screens/SearchScreen';
 import { listProductCategories } from './actions/productActions';
+import LoadingBox from './components/LoadingBox';
+import MessageBox from './components/MessageBox';
 
 function App() {
 
@@ -37,6 +39,8 @@ function App() {
   const signoutHandler = () => {
     dispatch(signout());
   };
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const { loading: loadingCategories, error: errorCategories, categories } = productCategoryList;
   useEffect(() => {
     dispatch(listProductCategories());
   }, [dispatch]);
@@ -107,6 +111,18 @@ function App() {
             <i class="fas fa-window-close"></i>
           </button>
         </li>
+        { loadingCategories ? ( <LoadingBox ></LoadingBox> )
+        :
+        errorCategories? ( <MessageBox variant="danger">{errorCategories}</MessageBox> )
+        :
+         ( 
+           categories.map((c) => (
+           <li key={c}>
+            <Link to={`/search/category/${c}`} onClick={() => setSidebarIsOpen(false)}>
+              {c}
+            </Link>
+           </li>))
+         )}  
       </ul>
     </aside>
     <main>

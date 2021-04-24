@@ -173,6 +173,7 @@ aside {
   background-color: #efefef;
   z-index: 1000;
   transform: translateX(-30rem);
+  transition: all 0.5s;
 }
 
 aside.open {
