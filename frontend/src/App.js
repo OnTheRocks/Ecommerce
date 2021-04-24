@@ -24,7 +24,7 @@ import SellerRoute from './components/SellerRoute';
 import SellerScreen from './Screens/SellerScreen';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './Screens/SearchScreen';
-import { listProductsCategories } from './actions/productActions';
+import { listProductCategories } from './actions/productActions';
 
 function App() {
 
@@ -37,7 +37,7 @@ function App() {
     dispatch(signout());
   };
   useEffect(() => {
-    dispatch(listProductsCategories());
+    dispatch(listProductCategories());
   }, [dispatch]);
   return (
     <BrowserRouter>
@@ -108,6 +108,8 @@ function App() {
       <Route path="/order/:id" component={OrderScreen}></Route>
       <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
       <Route path="/search/name/:name?" component={SearchScreen} exact></Route>
+      <Route path="/search/category/:category" component={SearchScreen} exact></Route>
+      <Route path="/search/category/:category/name/:name" component={SearchScreen} exact></Route>
       <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
       <AdminRoute path="/productList" component={ProductListScreen} exact></AdminRoute>
       <AdminRoute path="/orderList" component={OrderListScreen} exact></AdminRoute>

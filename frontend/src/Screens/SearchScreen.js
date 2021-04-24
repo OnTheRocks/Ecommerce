@@ -15,8 +15,8 @@ export default function SearchScreen(props) {
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { loading: loadingCategories, error: errorCategories, categories } = productCategoryList;
   useEffect(() => {
-    dispatch(listProducts({ name: name !== 'all' ? name : '' }));
-  }, [dispatch, name]);
+    dispatch(listProducts({ name: name !== 'all' ? name : '', category: category !== 'all' ? category : '' }));
+  }, [dispatch, name, category]);
 
   const getFilterUrl = (filter) => {
     const filterCategory = filter.category || category;
@@ -41,11 +41,11 @@ export default function SearchScreen(props) {
         :
         errorCategories? ( <MessageBox variant="danger">{error}</MessageBox> )
         :
-         ( <ul>
-          {categories.map(c => (
+         ( 
+         <ul>
+          {categories.map((c) => (
             <li key={c}>
-              <Link className={c === category ? 'active' : ''} to={getFilterUrl({category:c})}>{c}</Link>
-
+              <Link className={c === category ? 'active' : ''} to={getFilterUrl({ category: c })}>{c}</Link>
             </li>
           ))}
         </ul>
