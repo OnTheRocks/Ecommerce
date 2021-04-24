@@ -29,7 +29,7 @@ import { listProductCategories } from './actions/productActions';
 function App() {
 
   const cart = useSelector(state => state.cart);
-  const [sidebarIsOpen, setsidebarIsOpen] = useState(false)
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -45,6 +45,9 @@ function App() {
     <div className="grid-container">
     <header className="row">
       <div>
+        <button type="button" className="open-sidebar" onClick={() => setSidebarIsOpen(true)}>
+          <i className="fa fa-bars"></i>
+        </button>
         <Link className="brand" to="/">EStore</Link>
       </div>
       <div>
@@ -99,9 +102,9 @@ function App() {
     <aside className={sidebarIsOpen ? 'open' : '' }>
       <ul className="categories">
         <li>
-          <strong>categories</strong>
+          <strong>Categories</strong>
           <button onClick={() => setSidebarIsOpen(false)} className="close-sidebar" type="button">
-            <i className="fa fa-close"></i>
+            <i class="fas fa-window-close"></i>
           </button>
         </li>
       </ul>
