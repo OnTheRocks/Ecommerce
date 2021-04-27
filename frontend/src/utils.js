@@ -1,6 +1,6 @@
 export const prices = [
   {
-    name: 'any', min:0, max: 1000000,
+    name: 'Any', min:0, max: 0,
   },
   {
     name: '$1 to $10', min:1, max: 10,

@@ -6,25 +6,28 @@ import { listProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Product from '../components/Product';
+import Rating from '../components/Rating';
 import { prices, ratings } from '../utils';
 
 export default function SearchScreen(props) {
-  const { name = 'all', category = 'all', min=0, max=1000000 } = useParams();
+  const { name = 'all', category = 'all', min=0, max=0, rating=0, order='newest', } = useParams();
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const { loading: loadingCategories, error: errorCategories, categories } = productCategoryList;
   useEffect(() => {
-    dispatch(listProducts({ name: name !== 'all' ? name : '', category: category !== 'all' ? category : '', min, max, }));
-  }, [dispatch, name, category, min, max]);
+    dispatch(listProducts({ name: name !== 'all' ? name : '', category: category !== 'all' ? category : '', min, max, rating, order, }));
+  }, [dispatch, name, category, min, max, rating, order]);
 
   const getFilterUrl = (filter) => {
     const filterCategory = filter.category || category;
     const filterName = filter.name || name;
     const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min;
-    const filterMax = filter.max || max;
-    return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}`;
+    const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
+    const filterRating = filter.rating || rating;
+    const sortOrder = filter.order || order;
+    return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}`;
   };
 
   return (
@@ -36,6 +39,20 @@ export default function SearchScreen(props) {
         :
          ( <div>{products.length} Results</div> )
         }
+        <div>
+          Sort by{' '}
+          <select
+            value={order}
+            onChange={(e) => {
+              props.history.push(getFilterUrl({ order: e.target.value }));
+            }}
+          >
+            <option value="newest">New Arrivals</option>
+            <option value="lowest">Price: Low to High</option>
+            <option value="highest">Price: High to Low</option>
+            <option value="toprated">Ave. Customer Reviews</option>
+          </select>
+        </div>  
       </div>
       <div className="row top">
         <div className="col-1">
@@ -47,6 +64,9 @@ export default function SearchScreen(props) {
             :
             ( 
             <ul>
+              <li>
+                  <Link className={'all' === category ? 'active' : ''} to={getFilterUrl({ category: 'all' })}>Any</Link>
+              </li>
               {categories.map((c) => (
                 <li key={c}>
                   <Link className={c === category ? 'active' : ''} to={getFilterUrl({ category: c })}>{c}</Link>
@@ -66,11 +86,11 @@ export default function SearchScreen(props) {
           </ul>
           </div>
           <div>
-          <h3>Ratings</h3>
+          <h3>Avg. Customer Review</h3>
           <ul>
-            {ratings.map((p) => (
-              <li key={p.name}>
-                <Link to={getFilterUrl({ min: p.min, max: p.max })} className={`${p.min}-${p.max}` === `${min}-${max}` ? 'active' : ''}>{p.name}</Link>
+            {ratings.map((r) => (
+              <li key={r.name}>
+                <Link to={getFilterUrl({ rating: r.rating })} className={`${r.rating}` === `${rating}` ? 'active' : ''}><Rating caption={' & up'} rating={r.rating} ></Rating></Link>
               </li>
             ))}
           </ul>
