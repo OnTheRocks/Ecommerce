@@ -140,6 +140,7 @@ function App() {
       <Route path="/search/name/:name?" component={SearchScreen} exact></Route>
       <Route path="/search/category/:category" component={SearchScreen} exact></Route>
       <Route path="/search/category/:category/name/:name" component={SearchScreen} exact></Route>
+      <Route path="/search/category/:category/name/:name/min/:min/max/:max" component={SearchScreen} exact></Route>
       <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
       <AdminRoute path="/productList" component={ProductListScreen} exact></AdminRoute>
       <AdminRoute path="/orderList" component={OrderListScreen} exact></AdminRoute>
