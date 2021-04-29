@@ -110,6 +110,53 @@ export default function ProductScreen(props) {
           </div>
         </div>
       </div>
+      <div>
+        <h2 id="reviews">Reviews</h2>
+        {product.reviews.length === 0 && (
+          <MessageBox>There is no review yet</MessageBox>
+        )}
+        <ul>
+          {product.reviews.map((review) => (
+            <li key={review._id}>
+              <strong>{review.name}</strong>
+              <Rating rating={review.rating} caption=" "></Rating>
+              <p>{review.createAt.substring(0, 10)}</p>
+              <p>{review.comment}</p>
+            </li>
+          ))}
+            <li>
+              {userInfo ? (
+                <form className="form" onSubmit={submitHandler}>
+                  <div>
+                    <h2>Write a review</h2>
+                  </div>
+                  <div>
+                    <label htmlFor="rating">Rating</label>
+                    <select id="rating" value={rating}
+                      onChange={(e) => setRating(e.target.value)}>
+                        <option value="">Select...</option>
+                        <option value="1">1 - Poor</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="3">3 - Good</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="5">5 - Excelent</option>
+                      </select>
+                  </div>
+                  <div>
+                    <label htmlFor="comment">comment</label>
+                    <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+                  </div>
+                  <div>
+                    <label/>
+                    <button className="primary" type="submit">submit</button>
+                  </div>
+                </form>
+                ) : (
+                  <MessageBox>Please <Link to="/signin"> Sign In</Link> to write a review</MessageBox>
+              )}
+            </li>
+          </ul>
+      </div>
     </div>      
     )}
   </div>
