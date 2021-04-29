@@ -145,7 +145,7 @@ export default function ProductScreen(props) {
             <li key={review._id}>
               <strong>{review.name}</strong>
               <Rating rating={review.rating} caption=" "></Rating>
-              <p>{review.createAt.substring(0, 10)}</p>
+              <p>{review.createdAt.substring(0, 10)}</p>
               <p>{review.comment}</p>
             </li>
           ))}

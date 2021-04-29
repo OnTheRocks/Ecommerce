@@ -99,14 +99,20 @@ productRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, re
 })
 );
 
-productRouter.put('/:id/reviews', isAuth, expressAsyncHandler(async (req, res) => {
+productRouter.post('/:id/reviews', isAuth, expressAsyncHandler(async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if(product) {
-    const review = {name: req.user.name, rating: Number(req, body.rating), comment: req.body.comment };
+    if (product.reviews.find((x) => x.name === req.user.name)) {
+      return res
+        .status(400)
+        .send({ message: 'You already submitted a review' });
+    }
+    const review = {name: req.user.name, rating: Number(req.body.rating), comment: req.body.comment };
     product.reviews.push(review);
     product.numReviews = product.reviews.length;
-    product.rating = proudct.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length;
+    product.rating = product.reviews.reduce((a, c) => c.rating + a, 0) / 
+    product.reviews.length;
 
     const updatedProduct = await product.save();
     res.status(201)
