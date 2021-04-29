@@ -7,6 +7,8 @@ import { isAdmin, isAuth, isSeller, isSellerOrAdmin } from '../utils.js';
 const productRouter = express.Router();
 
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
+  const pageSize = 2;
+  const page = Number(req.query.pageNumber) || 1;
   const name = req.query.name || '';
   const category = req.query.category || '';
   const seller = req.query.seller || '';
@@ -21,10 +23,13 @@ productRouter.get('/', expressAsyncHandler(async (req, res) => {
   const ratingFilter = rating ? { rating: { $gte: rating } } : {};
   const sortOrder = order === 'lowest'?{price: 1}: order === 'highest'? {price: -1}: order === 'toprated'? {rating: -1}: { _id: -1};
 
+  const count = await Product.count({ ...sellerFilter, ...nameFilter, ...categoryFilter, ...priceFilter, ...ratingFilter })
   const products = await Product.find({ ...sellerFilter, ...nameFilter, ...categoryFilter, ...priceFilter, ...ratingFilter })
   .populate('seller', 'seller.name seller.logo')
-  .sort(sortOrder);
-  res.send(products);
+  .sort(sortOrder)
+  .skip(pageSize * (page - 1))
+  .limit(pageSize);
+  res.send({products, page, pages: Math.ceil(count / pageSize)});
   })
 );
 
