@@ -113,9 +113,10 @@ export const isSellerOrAdmin = (req, res, next) => {
   <p>
   ${order.shippingAddress.fullName},<br/>
   ${order.shippingAddress.address},<br/>
-  ${order.shippingAddress.city},<br/>
-  ${order.shippingAddress.country},<br/>
-  ${order.shippingAddress.postalCode}<br/>
+  ${order.shippingAddress.city},
+  ${order.shippingAddress.state},<br/>
+  ${order.shippingAddress.zip}<br/>
+  ${order.shippingAddress.country}<br/>
   </p>
   <hr/>
   <p>

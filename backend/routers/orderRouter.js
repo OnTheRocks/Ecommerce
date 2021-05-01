@@ -56,32 +56,35 @@ orderRouter.get(
 );
 
 orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
-  const order = await (await Order.findById(req.params.id)).populated('user', 'email name');
+  const order = await (await Order.findById(req.params.id)).populate('user', 'email name');
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
     order.paymentResult = { id: req.body.id, status: req.body.status, update_time: req.body.update_time, email_address: req.body.email_address };
     const updateOrder = await order.save();
 
-mailgun().messaged().send(
-  {
-    from: 'EStore <EStore@mg.yourdomain.com>',
-    to:`${order.user.name} <${order.user.email}>`,
-    subject: `New order ${order._id}`,
-    html: payOrderEmailTemplate(order),
-  }, (error, body) => {
-    if (error) {
-       console.log(error);
-    } else {
-      console.log(body);
-    }
-  });
-  
-      res.send({ message: 'Order Paid', order: updateOrder });
-    } else {
-      res.status(404).send({ message: 'Order Not Found' });
-    }
-  })
+mailgun()
+  .messages()
+  .send(
+    {
+      from: 'EStore <EStore@mg.yourdomain.com>',
+      // to: 'Nathan Huber <Nathan_Huber@yahoo.com>',
+      to: `${order.user.name} <${order.user.email}>`,
+      subject: `New order ${order._id}`,
+      html: payOrderEmailTemplate(order),
+    }, (error, body) => {
+      if (error) {
+         console.log(error);
+      } else {
+        console.log(body);
+      }
+    });
+
+        res.send({ message: 'Order Paid', order: updateOrder });
+      } else {
+        res.status(404).send({ message: 'Order Not Found' });
+      }
+    })
   );
 
 orderRouter.delete('/:id', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {

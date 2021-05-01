@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const MONGODB_URL = process.env.MONGODB_URL;
 
-console.log("Database connection = ", MONGODB_URL);
+// console.log("Database connection = ", MONGODB_URL);
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/EStore', {
   useNewUrlParser: true,
