@@ -68,8 +68,8 @@ mailgun()
   .send(
     {
       from: 'EStore <EStore@mg.yourdomain.com>',
-      // to: 'Nathan Huber <Nathan_Huber@yahoo.com>',
-      to: `${order.user.name} <${order.user.email}>`,
+      to: 'Nathan Huber <Nathan_Huber@yahoo.com>',
+      // to: `${order.user.name} <${order.user.email}>`,
       subject: `New order ${order._id}`,
       html: payOrderEmailTemplate(order),
     }, (error, body) => {
