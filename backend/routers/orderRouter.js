@@ -56,7 +56,7 @@ orderRouter.get(
 );
 
 orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async (req, res) => {
-  const order = await (await Order.findById(req.params.id)).populate('user', 'email name');
+  const order = await Order.findById(req.params.id).populate('user', 'email name');
   if (order) {
     order.isPaid = true;
     order.paidAt = Date.now();
@@ -68,8 +68,7 @@ mailgun()
   .send(
     {
       from: 'EStore <EStore@mg.yourdomain.com>',
-      to: 'Nathan Huber <Nathan_Huber@yahoo.com>',
-      // to: `${order.user.name} <${order.user.email}>`,
+      to: `${order.user.name} <${order.user.email}>`,
       subject: `New order ${order._id}`,
       html: payOrderEmailTemplate(order),
     }, (error, body) => {
