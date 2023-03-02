@@ -38,8 +38,8 @@ orderRouter.post(
     res
     .status(201)
     .send({ message: 'New Order Created', order: createdOrder });
-}
-})
+  }
+ })
 );
 
 orderRouter.get(
